@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Person</title>
+  <link rel="stylesheet" href="/css/reset.css" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+
+<body>
+  <header>
+    <h1>Person Details</h1>
+  </header>
+  <main>
+    <div>Name: <%= person.name %> </div>
+    <div>Hair: <%= person.hairStyle %> </div>
+    <ul>
+      <% person.kids.forEach(kid => { %>
+      <li> <%= kid %> </li>
+      <% }) %>
+    </ul>
+  </main>
+  <footer>
+    &copy; 2020 Natalie Sinner
+  </footer>
+  <script src="/js/app.js"></script>
+</body>
+
+</html>
