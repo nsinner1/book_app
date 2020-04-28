@@ -23,8 +23,6 @@ Create a new repository on GitHub named book_app. Add your partner as collaborat
 - Heroku App: https://ns-bb-booklist.herokuapp.com/
 
 ## Change Log
-<!-- Use this area to document the iterative changes made to your application as each feature is successfully implemented. Use time stamps. Here's an examples:
-
 04-27-2020 - Application now has a fully-functional express server, with GET and POST routes for the book resource.
            - Steps 1-4 of Trello board complete.
 
