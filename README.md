@@ -24,6 +24,7 @@ Create a new repository on GitHub named book_app. Add your partner as collaborat
 
 ## Change Log
 04-27-2020 - Application now has a fully-functional express server, with GET and POST routes for the book resource.
+
            - Steps 1-4 of Trello board complete.
 
 ## Credits and Collaborations
