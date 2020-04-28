@@ -3,27 +3,55 @@
 require('dotenv').config();
 
 const express = require('express');
-
 const PORT = process.env.PORT || 3000;
+const superagent = require('superagent');
 
 const app = express();
 
-app.use( express.urlencoded({extended:true }));
+// Brings in EJS
+app.set('view engine', 'ejs');
 
+app.use( express.urlencoded({extended:true }));
 app.use( express.static('./www') );
 
-// This is a good one
+// Check to see if route found
 app.get('/', (request, response) => {
   response.status(200).send('Hello World');
 });
 
-app.get('/person', (request, response) => {
-  response.status(200).send(`Welcome, ${request.query.name}, your hair is ${request.query.hair}`);
+// Route index.ejs works
+app.get('/youthere', (request, response) => {
+  response.status(200).render('pages/index.ejs');
 });
 
-app.post('/city', (request, response) => {
-  response.status(200).send(request.body.article);
+// New search route
+app.get('/new', (request, response) => {
+  response.status(200).render('pages/searches/new.ejs');
 });
+
+//Google API route
+app.post('/searches', (request, response) => {
+  let url = 'https://www.googleapis.com/books/v1/volumes';
+  let queryObject = {
+    q: `${request.body.searchby}:${request.body.search}`,
+  };
+  
+  superagent.get(url)
+    .query(queryObject)
+    .then(results => {
+      let books = results.body.items.map(book => new Book(book));
+      response.status(200).render('pages/searches/show.ejs', {books: books});
+    });
+});
+  
+let url = 'https://i.imgur.com/J5LVHEL.jpg';
+function Book(data) {
+  this.title = data.volumeInfo.title;
+  this.author = data.volumeInfo.authors;
+  this.image = data.volumeInfo.imageLinks ? data.volumeInfo.imageLinks.thumbnail : url;
+  this.description = data.volumeInfo.description;
+}
+
 
 // This will force an error
 app.get('/badthing', (request,response) => {
