@@ -20,7 +20,7 @@ app.get('/', (request, response) => {
 });
 
 // Route index.ejs works
-app.get('/youthere', (request, response) => {
+app.get('/index', (request, response) => {
   response.status(200).render('pages/index.ejs');
 });
 
@@ -30,12 +30,12 @@ app.get('/new', (request, response) => {
 });
 
 //Google API route
-app.post('/searches', (request, response) => {
+app.get('/searches', (request, response) => {
   let url = 'https://www.googleapis.com/books/v1/volumes';
   let queryObject = {
     q: `${request.body.searchby}:${request.body.search}`,
   };
-  
+
   superagent.get(url)
     .query(queryObject)
     .then(results => {
@@ -43,7 +43,7 @@ app.post('/searches', (request, response) => {
       response.status(200).render('pages/searches/show.ejs', {books: books});
     });
 });
-  
+
 let url = 'https://i.imgur.com/J5LVHEL.jpg';
 function Book(data) {
   this.title = data.volumeInfo.title;
