@@ -58,6 +58,11 @@ app.get('/badthing', (request,response) => {
   throw new Error('WTF???');
 });
 
+// Error route
+app.get('/error', (request, response,) => {
+    response.status(404).render('pages/error');
+  })
+
 // 404 Handler
 app.use('*', (request, response) => {
   console.log(request);
