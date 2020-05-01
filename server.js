@@ -16,12 +16,13 @@ app.use( express.static('./www') );
 
 // Check to see if route found
 app.get('/', (request, response) => {
-  response.status(200).send('Hello World');
+    response.status(200).render('pages/index.ejs',{message:'proof of life'});
+//   response.status(200).send('Hello World');
 });
 
 // Route index.ejs works
 app.get('/index', (request, response) => {
-  response.status(200).render('pages/index.ejs');
+//   response.status(200).render('pages/index.ejs',{message:'proof of life'});
 });
 
 // New search route
@@ -72,7 +73,7 @@ app.use('*', (request, response) => {
 // Error Handler
 app.use( (err,request,response,next) => {
   console.error(err);
-  response.status(500).render('pages/500', {error});
+  response.status(500).render('pages/500', {error:err});
 });
 
 // Startup
