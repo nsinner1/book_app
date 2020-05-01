@@ -3,14 +3,19 @@
 <html lang="en">
     
 <head>
-  <link rel="stylesheet" href="style/reset.css">
-  <link rel="stylesheet" href="style/base.css">
+  <%- include('../partial/head') %>
   <title>Book App</title>
 </head>
 <body>
-  <header>Hello World</header>
+  <header>
+    <%- include('./partials/nav) %>
+    Hello World
+  </header>
 
-  <main>Stuff goes here</main>
+  <main>Stuff goes here
+    <h2>Page Not Found</h2>
+  </main>
+    
   
   <footer>&copy; 2020 Natalie Sinner and Bhagirath Bhatt</footer>
 

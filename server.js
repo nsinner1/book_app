@@ -66,13 +66,13 @@ app.get('/error', (request, response,) => {
 // 404 Handler
 app.use('*', (request, response) => {
   console.log(request);
-  response.status(404).send(`Can't Find ${request.pathname}`);
+  response.status(404).render(`pages/404');
 });
 
 // Error Handler
 app.use( (err,request,response,next) => {
   console.error(err);
-  response.status(500).send(err.message);
+  response.status(500).render('pages/500', {error});
 });
 
 // Startup
