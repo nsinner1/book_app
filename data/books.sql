@@ -9,5 +9,5 @@ CREATE TABLE books (
   discription TEXT,
   bookshelf TEXT,
   listPrice VARCHAR(20)
-)
+);
 
