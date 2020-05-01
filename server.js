@@ -66,7 +66,7 @@ app.get('/error', (request, response,) => {
 // 404 Handler
 app.use('*', (request, response) => {
   console.log(request);
-  response.status(404).render(`pages/404');
+  response.status(404).render('pages/404');
 });
 
 // Error Handler
