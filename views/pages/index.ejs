@@ -3,18 +3,19 @@
 <html lang="en">
     
 <head>
-  <%- include('../partial/head') %>
+  <%- include('./partial/head') %>
   <title>Book App</title>
 </head>
 <body>
   <header>
-    <%- include('./partials/nav) %>
+    <%- include('./partial/nav') %>
     Hello World
   </header>
 
-  <main>Stuff goes here</main>
-  
-  <footer>&copy; 2020 Natalie Sinner and Bhagirath Bhatt</footer>
+  <main>Stuff goes here
+  <%= message %>
+  </main>
 
+  <footer>&copy; 2020 Natalie Sinner and Bhagirath Bhatt</footer>
 </body>
 </html>
