@@ -2,33 +2,31 @@
 <html>
 
 <head>
-  <%- include('../partial/head') %>
+  <%- include('../../partial/head') %>
   <title>Book App</title>
-  <link rel="stylesheet" href="/css/reset.css" />
-  <link rel="stylesheet" href="/css/style.css" />
 </head>
 
 <body>
   <header>
-    <%- include('../partial/nav') %>
+    <%- include('../../partial/nav') %>
     <h1>Book by Title or Author</h1>
   </header>
   <main>
-    <form method="post" action="/searches/show">
-        <div>
-            <input name="text" placeholder="Enter Title or Author" />
-        </div>
-        <div>
-            <label>
-                <input type="radio" name="searchby" value= "intitle">
-                Title
-            </label>
-            <label>
-                <input type="radio" name="searchby" value= "inauthor">
-                Author
-            </label>
-        </div>
-        <button type="submit">Search the Google Books API</button>
+    <form method="post" action="/searches">
+      <div>
+        <input type="text" name="search" placeholder="Enter Title or Author" />
+      </div>
+      <div>
+        <label>
+          <input type="radio" name="searchby" value="intitle">
+          Title
+        </label>
+        <label>
+          <input type="radio" name="searchby" value="inauthor">
+          Author
+        </label>
+      </div>
+      <button type="submit">Search the Google Books API</button>
     </form>
 
   </main>
@@ -36,8 +34,8 @@
     &copy; 2020 Natalie Sinner and Bhagirath Bhatt
   </footer>
 
-  <%- include('../partials/scripts') %>
-  
+  <%- include('../../partial/script') %>
+
 </body>
 
 </html>
