@@ -1,7 +1,7 @@
 {
   "name": "book_app",
   "version": "1.0.0",
-  "description": "",
+  "description": "**Author**: Natalie Sinner and Bhagirath Bhatt",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -29,5 +29,6 @@
     "ip": "^1.1.5",
     "pg": "^8.0.3",
     "superagent": "^5.2.2"
-  }
+  },
+  "devDependencies": {}
 }

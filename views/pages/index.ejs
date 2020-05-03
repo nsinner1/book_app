@@ -13,7 +13,19 @@
   </header>
 
   <main>
-    Stuff goes here
+    <ul>
+      <% books.forEach ( book => { %>
+        <li>
+          <img src="<%= book.image_url %>">
+          <%= book.title %>
+          <%= book.author %>
+          <%= book.isbn %>
+          <%= book.description %>
+          <%= book.bookshelf %>
+          <%= book.listPrice %>
+        </li>
+      <% }) %>
+    </ul>
   </main>
 
   <footer>&copy; 2020 Natalie Sinner and Bhagirath Bhatt</footer>

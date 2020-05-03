@@ -5,10 +5,13 @@ require('dotenv').config();
 const express = require('express');
 const PORT = process.env.PORT || 3000;
 const superagent = require('superagent');
+const pg = require('pg');
 
 const app = express();
 
 // Brings in EJS
+const client = new pg.Client(process.env.DATABASE_URL);
+
 app.set('view engine', 'ejs');
 
 app.use(express.urlencoded({ extended: true }));
@@ -16,7 +19,14 @@ app.use(express.static('./www'));
 
 // Check to see if route found
 app.get('/', (request, response) => {
-  response.status(200).render('pages/index.ejs');
+  const SQL =  `SELECT * FROM books`;
+  client.query(SQL)
+    .then(results => {
+      response.status(200).render('pages/index.ejs', {books: results.rows});
+    })
+    .catch ( error => {
+      throw new Error (error);
+    });
 });
 
 
@@ -32,7 +42,7 @@ app.post('/searches', (request, response) => {
     q: `${request.body.searchby}:${request.body.search}`,
   };
 
-  console.log(queryObject);
+  // console.log(queryObject);
 
   superagent.get(url)
     .query(queryObject)
@@ -49,17 +59,36 @@ let url = 'https://i.imgur.com/J5LVHEL.jpg';
 function Book(data) {
   this.title = data.volumeInfo.title;
   this.author = data.volumeInfo.authors;
+  this.isbn = data.volumeInfo.industryIdentifiers[0].identifier;
   this.image_url = data.volumeInfo.imageLinks ? data.volumeInfo.imageLinks.thumbnail : url;
-  this.description = data.volumeInfo.description;
+  this.description = data.volumeInfo.description ? data.volumeInfo.description:"Book App is HELL";
 }
 
 
 app.post('/books', (request, response) => {
-  console.log(request.body)
+  // console.log(request.body)
   // Create the SQL to insert into the db
+  let SQL = `INSERT INTO books (title, author, isbn, image_url, description)
+  VALUES ($1, $2, $3, $4, $5)`;
+  let VALUES = [
+    request.body.title,
+    request.body.author,
+    request.body.isbn,
+    request.body.image_url,
+    request.body.description
+  ];
+
+  if ( ! (request.body.title || request.body.author || request.body.isbn || request.body.image_url || request.body.description) ) {
+    throw new Error('invalid input');
+  }
   // Do a client.query() with that and the values from request.body
+  client.query(SQL, VALUES)
   // .then() ... do a redirect to /book/ID
-  response.status(200).send('ok');
+    .then(results => {
+      console.log(results);
+      response.status(200).redirect('/');
+    });
+  // response.status(200).send('ok');
 });
 
 // 404 Handler
@@ -76,7 +105,10 @@ app.use((err, request, response, next) => {
 // Startup
 
 function startServer() {
-  app.listen(PORT, () => console.log(`Server running on ${PORT}`));
+  client.connect()
+    .then(() => {
+      app.listen(PORT, () => console.log(`Server running on ${PORT}`));
+    });
 }
 
 startServer();
