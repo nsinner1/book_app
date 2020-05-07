@@ -1,18 +1,10 @@
 'use strict';
 
-console.log('Hello');
-
-
-$('.update').on('click', showForm);
+$('#update').on('click', showForm);
 
 function showForm() {
-  $(this).fadeOut();
-  $(this).next().fadeIn();
-}
-
-$('.cancel-update').on('click', hideForm);
-
-function hideForm() {
-  $(this).parent().fadeOut();
-  $('.update').show();
+  $('#update-task-form').show();
+  $('#update').hide();
+  $('#bookInfo').hide();
+  $('#delete').hide();
 }

@@ -14,7 +14,7 @@
 
   <main>
       <ul>
-        <li>
+        <li id="bookInfo">
           <img src="<%= book.image_url %>">
           <%= book.title %>
           <%= book.author %>
@@ -22,12 +22,26 @@
           <%= book.description %>
           <%= book.bookshelf %>
           <%= book.listPrice %>
+        </li>
 
-          <form action="/delete/<%= book.id %>?_method=delete" method="post">
-            <button type="submit">Delete Book</button>
+          <button id="update">Update</button>
+
+          <form id="update-task-form"  method="post" action="/update-book/<%= book.id %>?_method=put">
+              <input class="update" name="image" value= "<%= book.image_url %>" /><br>
+              <input class="update" name="title" value= "<%= book.title %>" /><br>
+              <input class="update" name="author" value= "<%= book.author %>" /><br>
+              <input class="update" name="isbn" value= "<%= book.isbn %>" /><br>
+              <textarea id="descript" class="update" name="description" ><%= book.description %></textarea><br>
+              
+              <%- include('../partial/dropdown') %>
+            
+            <button type="submit">Update</button>      
           </form>
 
-        </li>
+          <form action="/delete/<%= book.id %>?_method=delete" method="post">
+            <button type="submit" id="delete">Delete Book</button>
+          </form>
+
       </ul>
   </main>
 
