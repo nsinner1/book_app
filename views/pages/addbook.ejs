@@ -13,7 +13,6 @@
   </header>
 
   <main>
-    <% books.forEach ( book => { %>
       <ul>
         <li>
           <img src="<%= book.image_url %>">
@@ -24,13 +23,12 @@
           <%= book.bookshelf %>
           <%= book.listPrice %>
 
-          
-          <form class="add-book-form" method="get" action="addbook/<%= book.id %>">
-            <button class="update" type="submit">Add Book</button>
+          <form action="/delete/<%= book.id %>?_method=delete" method="post">
+            <button type="submit">Delete Book</button>
           </form>
+
         </li>
       </ul>
-      <% }) %>
   </main>
 
   <footer>&copy; 2020 Natalie Sinner and Bhagirath Bhatt</footer>

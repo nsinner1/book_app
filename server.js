@@ -6,6 +6,7 @@ const express = require('express');
 const PORT = process.env.PORT || 3000;
 const superagent = require('superagent');
 const pg = require('pg');
+const methodOverride = require('method-override');
 
 const app = express();
 
@@ -15,6 +16,8 @@ const client = new pg.Client(process.env.DATABASE_URL);
 app.set('view engine', 'ejs');
 
 app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride('_method'));
+
 app.use(express.static('./www'));
 
 // Check to see if route found
@@ -90,6 +93,33 @@ app.post('/books', (request, response) => {
     });
   // response.status(200).send('ok');
 });
+
+app.get('/addbook/:id', addBook);
+
+
+app.delete('/delete/:id', deleteBook);
+
+function addBook (request, response) {
+  let SQL = `SELECT * FROM books WHERE id = $1`;
+  let VALUES = [request.params.id];
+  client.query(SQL, VALUES)
+    .then(results =>{
+      response.status(200).render('pages/addbook', { book:results.rows[0]});
+    });
+}
+
+function deleteBook (request, response) {
+  let id = request.params.id;
+  let SQL = `DELETE FROM books WHERE id = $1`;
+  let VALUES = [id];
+  client.query(SQL, VALUES)
+    .then(results => {
+      response.status(200).redirect('/');
+    });
+}
+
+
+
 
 // 404 Handler
 app.use('*', (request, response) => {
