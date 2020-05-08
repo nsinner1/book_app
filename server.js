@@ -121,19 +121,19 @@ function deleteBook (request, response) {
 app.put('/update-book/:id', handleUpdate);
 
 function handleUpdate (request, response) {
-  let SQL = 'UPDATE books set title = $1, authors= $2, descriptions= $3, isbn = $4, image_url= $5 WHERE id = $6';
+  let SQL = 'UPDATE books set title = $1, author= $2, description= $3, isbn = $4, image_url= $5 WHERE id = $6';
   let VALUES = [
-    request.body.title, 
-    request.body.author, 
-    request.body.description, 
-    request.body.isbn, 
-    request.body.image, 
+    request.body.title,
+    request.body.author,
+    request.body.isbn,
+    request.body.image_url,
+    request.body.description,
     request.params.id,
   ];
 
   client.query(SQL, VALUES)
     .then(results => {
-      response.status(200).redirect(`/onebook/${request.params.id}`)
+      response.status(200).redirect(`/addbook/${request.params.id}`);
     });
 }
 
