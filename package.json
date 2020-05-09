@@ -28,7 +28,9 @@
     "get-ip": "^2.0.0",
     "ip": "^1.1.5",
     "method-override": "^3.0.0",
-    "pg": "^8.0.3",
+    "node": "^14.2.0",
+    "nodemon": "^2.0.3",
+    "pg": "^8.1.0",
     "superagent": "^5.2.2"
   },
   "devDependencies": {}
