@@ -27,7 +27,6 @@
           <button id="update">Update</button>
 
           <form id="update-task-form"  method="post" action="/update-book/<%= book.id %>?_method=put">
-              <input class="update" name="image" value= "<%= book.image_url %>" /><br>
               <input class="update" name="title" value= "<%= book.title %>" /><br>
               <input class="update" name="author" value= "<%= book.author %>" /><br>
               <input class="update" name="isbn" value= "<%= book.isbn %>" /><br>

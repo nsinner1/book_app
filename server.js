@@ -62,7 +62,7 @@ let url = 'https://i.imgur.com/J5LVHEL.jpg';
 function Book(data) {
   this.title = data.volumeInfo.title;
   this.author = data.volumeInfo.authors;
-  this.isbn = data.volumeInfo.industryIdentifiers[0].identifier;
+  this.isbn = data.volumeInfo.industryIdentifiers.identifier;
   this.image_url = data.volumeInfo.imageLinks ? data.volumeInfo.imageLinks.thumbnail : url;
   this.description = data.volumeInfo.description ? data.volumeInfo.description:"Book App is HELL";
 }
@@ -121,19 +121,18 @@ function deleteBook (request, response) {
 app.put('/update-book/:id', handleUpdate);
 
 function handleUpdate (request, response) {
-  let SQL = 'UPDATE books set title = $1, author= $2, description= $3, isbn = $4, image_url= $5 WHERE id = $6';
+  let SQL = 'UPDATE books set title = $1, author= $2, description= $3, isbn = $4 WHERE id = $5';
   let VALUES = [
     request.body.title,
     request.body.author,
-    request.body.isbn,
-    request.body.image_url,
     request.body.description,
+    request.body.isbn,
     request.params.id,
   ];
 
   client.query(SQL, VALUES)
     .then(results => {
-      response.status(200).redirect(`/addbook/${request.params.id}`);
+      response.status(200).redirect(`/`);
     });
 }
 
